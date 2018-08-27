@@ -4,13 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-redis = "*"
 flask = "*"
+redis = "*"
 
 [dev-packages]
+"flake8" = "*"
 black = "*"
 pytest = "*"
-"flake8" = "*"
 
 [requires]
 python_version = "3.6"

@@ -10,4 +10,7 @@ COPY ./runner /app
 
 EXPOSE 5000
 
-CMD pipenv run python main.py
+ENV FLASK_APP=gerrychain_queue
+ENV FLASK_ENV=production
+
+CMD pipenv run flask run

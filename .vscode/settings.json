@@ -1,7 +1,11 @@
 {
-  "python.pythonPath": "C:\\Users\\maxhu\\.virtualenvs\\gerrychain-runner-xnKJu51H\\Scripts\\python.exe",
+  "python.pythonPath": "C:\\Users\\maxhu\\.virtualenvs\\gerrychain-queue-7WgBBLn0\\Scripts\\python.exe",
   "python.formatting.provider": "black",
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
-  "python.linting.enabled": true
+  "python.linting.enabled": true,
+  "python.unitTest.pyTestArgs": ["."],
+  "python.unitTest.unittestEnabled": false,
+  "python.unitTest.nosetestsEnabled": false,
+  "python.unitTest.pyTestEnabled": true
 }
