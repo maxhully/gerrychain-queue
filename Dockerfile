@@ -8,8 +8,6 @@ RUN pipenv install --system
 
 COPY . /app
 
-RUN pipenv install gunicorn
-
 EXPOSE 5000
 
 ENV FLASK_APP=gerrychain_queue
