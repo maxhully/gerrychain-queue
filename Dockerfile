@@ -6,7 +6,7 @@ WORKDIR /app
 COPY Pipfile Pipfile.lock /app/
 RUN pipenv install --system
 
-COPY ./runner /app
+COPY . /app
 
 EXPOSE 5000
 
