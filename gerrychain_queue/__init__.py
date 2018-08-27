@@ -17,4 +17,8 @@ def create_app(test_config=None):
         q = get_queue()
         return str(q.ping())
 
+    from . import runs
+
+    app.register_blueprint(runs.bp)
+
     return app

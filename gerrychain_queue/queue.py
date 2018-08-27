@@ -1,7 +1,6 @@
-from flask import g, current_app
-
 import json
 
+from flask import current_app, g
 from redis import StrictRedis
 
 
@@ -23,6 +22,9 @@ class Queue:
 
     def get_next_task(self):
         return self.redis.brpop(self.key)
+
+    def list_tasks(self):
+        return self.redis.get(self.key)
 
     def update_status(self, task_key, message):
         self.redis.set(task_key, message)
