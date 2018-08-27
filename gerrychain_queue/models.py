@@ -1,6 +1,10 @@
 from uuid import uuid4
 
 
+def generate_id():
+    return str(uuid4())[:8]
+
+
 class Run:
     required_fields = ["graph", "constraints", "total_steps"]
 
@@ -8,7 +12,7 @@ class Run:
         self.validate(run_spec)
 
         if "id" not in run_spec:
-            run_spec["id"] = uuid4().hex
+            run_spec["id"] = generate_id()
 
         self.id = run_spec["id"]
         self.graph = run_spec["graph"]

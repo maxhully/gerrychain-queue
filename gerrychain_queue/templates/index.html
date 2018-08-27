@@ -5,12 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerrychain Queue</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
   <header>
     <h1>Gerrychain Queue</h1>
   </header>
+  <section>
+    <ol>
+      {% for run in runs %}
+      <li><a href="{{run.href}}">{{run.id}}</a></li>
+      {% endfor %}
+    </ol>
+  </section>
 </body>
 
 </html>
