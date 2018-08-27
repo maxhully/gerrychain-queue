@@ -3,6 +3,8 @@ import json
 from flask import current_app, g
 from redis import StrictRedis
 
+from gerrychain_queue.models import Run
+
 
 def get_queue():
     if "queue" not in g:
@@ -25,7 +27,7 @@ class Queue:
 
     def list_tasks(self):
         json_items = self.redis.lrange(self.key, 0, -1)
-        return [json.loads(item) for item in json_items]
+        return [Run(json.loads(item)) for item in json_items]
 
     def get_status(self, task_id):
         status_json = self.redis.get(task_id)

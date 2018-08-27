@@ -3,6 +3,8 @@ import json
 import pytest
 import gerrychain_queue
 
+# TODO: Mock Queue for all of these
+
 
 @pytest.fixture
 def client():
@@ -48,4 +50,5 @@ def test_status_of_nonexistent_run_returns_404(client):
 def test_list_of_runs_includes_hrefs_to_individual_statuses(client):
     resp = client.get("/runs/")
     list_of_runs = json.loads(resp.data)
-    assert ("href" in run for run in list_of_runs)
+    assert len(list_of_runs) > 0
+    assert all("href" in run.keys() for run in list_of_runs)

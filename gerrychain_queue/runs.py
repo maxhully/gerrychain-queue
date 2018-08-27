@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, abort, request
+from flask import Blueprint, jsonify, abort, request, url_for
 
 from gerrychain_queue.queue import get_queue
 from gerrychain_queue.models import Run
@@ -27,8 +27,14 @@ def create_run():
 @bp.route("/", methods=["GET"])
 def list_runs():
     q = get_queue()
-    tasks = q.list_tasks()
-    return jsonify(tasks)
+    runs = [run.public() for run in q.list_tasks()]
+    inject_hrefs(runs)
+    return jsonify(runs)
+
+
+def inject_hrefs(resources):
+    for resource in resources:
+        resource["href"] = url_for(".get_run_status", run_id=resource["id"])
 
 
 @bp.route("/<run_id>", methods=["GET"])
