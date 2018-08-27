@@ -8,9 +8,11 @@ RUN pipenv install --system
 
 COPY . /app
 
+RUN pipenv install gunicorn
+
 EXPOSE 5000
 
 ENV FLASK_APP=gerrychain_queue
 ENV FLASK_ENV=production
 
-CMD pipenv run flask run
+CMD pipenv run gunicorn -w 2 gerrychain_queue:create_app()
