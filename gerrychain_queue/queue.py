@@ -17,3 +17,6 @@ class Queue:
     def return_failed_task(self, task):
         task["attempts"] += 1
         self.redis.rpush(json.dumps(task))
+
+    def add_task(self, task):
+        self.redis.lpush(self.key, json.dumps(task))
