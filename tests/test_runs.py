@@ -1,15 +1,7 @@
 import json
 
-import pytest
-import gerrychain_queue
 
 # TODO: Mock Queue for all of these
-
-
-@pytest.fixture
-def client():
-    client = gerrychain_queue.create_app().test_client()
-    yield client
 
 
 def test_post_to_runs_returns_new_run_id(client, run_spec):
