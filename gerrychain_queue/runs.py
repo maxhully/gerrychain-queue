@@ -17,3 +17,9 @@ def create_run():
         abort(500)
     return jsonify(task)
 
+
+@bp.route("/", methods=("GET",))
+def list_runs():
+    q = get_queue()
+    tasks = q.list_tasks()
+    return jsonify(tasks)

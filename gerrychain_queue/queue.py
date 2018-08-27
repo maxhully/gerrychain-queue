@@ -24,7 +24,8 @@ class Queue:
         return self.redis.brpop(self.key)
 
     def list_tasks(self):
-        return self.redis.get(self.key)
+        json_items = self.redis.lrange(self.key, 0, -1)
+        return [json.loads(item) for item in json_items]
 
     def update_status(self, task_key, message):
         self.redis.set(task_key, message)
