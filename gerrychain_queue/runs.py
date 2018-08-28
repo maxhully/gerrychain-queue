@@ -7,9 +7,15 @@ bp = Blueprint("runs", __name__, url_prefix="/api/runs")
 
 
 @bp.route("/", methods=["POST"])
-def create_run():
+def create_run_endpoint():
+    run_spec = request.get_json()
+    response = create_run(run_spec)
+    return jsonify(response)
+
+
+def create_run(run_spec):
     try:
-        run = Run(request.get_json())
+        run = Run(run_spec)
     except ValueError as err:
         abort(400)
 
@@ -21,7 +27,7 @@ def create_run():
     except Exception:
         abort(500)
 
-    return jsonify(document)
+    return document
 
 
 @bp.route("/", methods=["GET"])

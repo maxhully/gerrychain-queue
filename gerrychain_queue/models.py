@@ -2,7 +2,7 @@ from uuid import uuid4
 
 
 def generate_id():
-    return str(uuid4())[:8]
+    return uuid4().hex
 
 
 class Run:

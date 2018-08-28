@@ -15,8 +15,8 @@ def get_queue():
 
 
 class Queue:
-    def __init__(self, redis_config, key="queue"):
-        self.redis = StrictRedis(**redis_config)
+    def __init__(self, redis_config, key="queue", Cache=StrictRedis):
+        self.redis = Cache(**redis_config)
         self.key = key
 
     def ping(self):
