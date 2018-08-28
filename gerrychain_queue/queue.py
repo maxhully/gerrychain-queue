@@ -22,9 +22,6 @@ class Queue:
     def ping(self):
         return self.redis.ping()
 
-    def get_next_task(self):
-        return self.redis.brpop(self.key)
-
     def list_tasks(self):
         json_items = self.redis.lrange(self.key, 0, -1)
         return [Run(json.loads(item)) for item in json_items]

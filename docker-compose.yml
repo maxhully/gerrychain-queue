@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  gerrychain-queue:
+    image: gerrychain-queue
+    build: .
+    ports:
+      - "5000:5000"
+  gerrychain-runner:
+    image: gerrychain-runner
+    build: ../gerrychain-runner
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
