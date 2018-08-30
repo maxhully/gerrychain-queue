@@ -6,13 +6,9 @@ services:
     build: .
     ports:
       - "5000:5000"
-    environment:
-      - REDIS_HOST=redis
   gerrychain-runner:
     image: gerrychain-runner
     build: ../gerrychain-runner
-    environment:
-      - REDIS_HOST=redis
   redis:
     image: redis
     ports:
