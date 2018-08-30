@@ -44,3 +44,9 @@ def test_list_of_runs_includes_hrefs_to_individual_statuses(client):
     list_of_runs = json.loads(resp.data)
     assert len(list_of_runs) > 0
     assert all("href" in run.keys() for run in list_of_runs)
+
+
+def test_list_of_runs_includes_statuses(client):
+    resp = client.get("/api/runs/")
+    list_of_runs = json.loads(resp.data)
+    assert all("status" in run.keys() for run in list_of_runs)

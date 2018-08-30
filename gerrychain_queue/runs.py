@@ -37,21 +37,24 @@ def list_runs_endpoint():
 
 def list_runs():
     q = get_queue()
-    runs = [run.public() for run in q.list_tasks()]
+    runs = q.list_tasks()
     inject_hrefs(runs)
     return runs
 
 
 def inject_hrefs(resources):
     for resource in resources:
-        resource["href"] = url_for("runs.get_run_status", run_id=resource["id"])
+        resource["href"] = url_for("runs.get_run", run_id=resource["id"])
 
 
 @bp.route("/<run_id>", methods=["GET"])
-def get_run_status(run_id):
+def get_run(run_id):
     q = get_queue()
     try:
-        run_info = q.get_status(run_id)
+        status = q.get_status(run_id)
+        details = q.get_task(run_id)
     except KeyError:
         abort(404)
+    run_info = details.public()
+    run_info["status"] = status
     return jsonify(run_info)
