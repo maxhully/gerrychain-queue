@@ -13,11 +13,22 @@
     <h1>Gerrychain Queue</h1>
   </header>
   <section>
-    <ol>
-      {% for run in runs %}
-      <li><a href="{{run.href}}">{{run.id}}</a></li>
-      {% endfor %}
-    </ol>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for run in runs %}
+        <tr>
+          <td><a href="{{run.href}}">{{run.id[:8]}}</a></td>
+          <td>{{run.status}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </section>
 </body>
 
