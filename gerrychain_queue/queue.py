@@ -19,7 +19,7 @@ def get_queue():
 class Queue:
     def __init__(self, redis_config, key="queue", Cache=StrictRedis, Task=Run):
         self.redis = Cache(**redis_config)
-        self.Task = Run
+        self.Task = Task
 
         self.key = key
         self.statuses_key = key + "-statuses"
