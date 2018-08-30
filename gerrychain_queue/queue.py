@@ -37,12 +37,12 @@ class Queue:
     def add_task(self, task):
         task_json = json.dumps(task)
 
+        self.update_status(task["id"], "WAITING")
+
         pipe = self.redis.pipeline()
         pipe.lpush(self.key, task_json)
         pipe.set(task["id"], task_json)
         pipe.execute()
-
-        self.update_status(task["id"], "WAITING")
 
     def get_task(self, task_id):
         task_json = self.redis.get(task_id)
@@ -66,14 +66,3 @@ class Queue:
 
     def send_message(self, task_key, message):
         self.redis.publish(channel=task_key, message=message)
-
-    def return_failed_task(self, task):
-        if "attempts" in task:
-            task["failed_attempts"] += 1
-        else:
-            task["failed_attempts"] = 1
-        self.redis.rpush(self.key, json.dumps(task))
-        self.update_status(self, task["id"], "FAILED")
-
-    def complete_task(self, task_key):
-        self.update_status(self, task_key, "COMPLETED")
