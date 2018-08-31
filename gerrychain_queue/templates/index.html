@@ -11,25 +11,26 @@
 <body>
   <header>
     <h1>Gerrychain Queue</h1>
+    <nav>
+      <a href="{{url_for('frontend.new')}}">Create new run</a>
+    </nav>
   </header>
-  <section>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for run in runs %}
-        <tr>
-          <td><a href="{{run.href}}">{{run.id[:8]}}</a></td>
-          <td>{{run.status}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </section>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for run in runs %}
+      <tr>
+        <td><a href="{{run.href}}">{{run.id[:8]}}</a></td>
+        <td>{{run.status}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </body>
 
 </html>

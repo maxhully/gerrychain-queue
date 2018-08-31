@@ -2,15 +2,59 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a new run | Gerrychain Queue</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a new run | Gerrychain Queue</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
+  <header>
     <h1>Create a new run</h1>
-    <form action="/">
-    </form>
+    <nav>
+      <a href="{{url_for('frontend.home')}}">Back to queue</a>
+    </nav>
+  </header>
+  <form action="{{url_for('runs.create_run_endpoint')}}" method="post">
+    <div>
+      <label for="state">State</label>
+      <select id="state" name="state">
+        <option value="pa">Pennsylvania</option>
+        <option value="wi">Wisconsin</option>
+      </select>
+    </div>
+    <fieldset>
+      <legend>
+        Binary Constraints
+      </legend>
+      <div>
+        <input type="checkbox" name="constraints" id="contiguous" value="contiguous">
+        <label for="contiguous">Districts must be <strong>contiguous</strong>.</label>
+      </div>
+      <div>
+        <input type="checkbox" name="constraints" id="population" value="population">
+        <label for="population">
+          Districts must be <strong>within <input type="number" name="populationTolerance" id="populationTolerance">% of
+            the ideal equal population</strong>.
+        </label>
+      </div>
+      <div>
+        <input type="checkbox" name="constraints" id="compactness" value="compactness">
+        <label for="compactness">The
+          <select name="compactnessScore" id="compactnessScore">
+            <option value="Lm1PP">L-1 Polsby-Popper score</option>
+            <option value="L1reciprocalPP">L1 Polsby-Popper score</option>
+          </select> of the plan must be no worse than the original plan.
+        </label>
+      </div>
+    </fieldset>
+    <div>
+      <label for="steps">Total Steps</label>
+      <input type="number" name="steps" id="steps" required>
+    </div>
+    <input type="submit" value="Create run">
+
+  </form>
 </body>
 
 </html>
