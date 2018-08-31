@@ -13,4 +13,4 @@ EXPOSE 5000
 ENV FLASK_APP=gerrychain_queue
 ENV FLASK_ENV=production
 
-CMD pipenv run gunicorn -b :5000 --access-logfile - --error-logfile - "gerrychain_queue:create_app()"
+CMD gunicorn -w 1 -b :5000 --access-logfile - --error-logfile - "gerrychain_queue:create_app()"
