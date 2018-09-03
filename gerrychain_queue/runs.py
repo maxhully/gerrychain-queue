@@ -44,10 +44,14 @@ def list_runs():
 
 def inject_hrefs(resources):
     for resource in resources:
-        resource["href"] = url_for("runs.get_run", run_id=resource["id"])
+        resource["href"] = url_for("runs.get_run_endpoint", run_id=resource["id"])
 
 
 @bp.route("/<run_id>", methods=["GET"])
+def get_run_endpoint(run_id):
+    return jsonify(get_run(run_id))
+
+
 def get_run(run_id):
     q = get_queue()
     try:
@@ -57,4 +61,4 @@ def get_run(run_id):
         abort(404)
     run_info = details.public()
     run_info["status"] = status
-    return jsonify(run_info)
+    return run_info

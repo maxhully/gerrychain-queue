@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from gerrychain_queue.runs import list_runs
-from gerrychain_queue.runs import create_run
+from gerrychain_queue.runs import list_runs, create_run, get_run
 
 bp = Blueprint("frontend", __name__, url_prefix="/")
 
@@ -21,7 +20,7 @@ def post_new():
     run_spec = get_run_spec_from_form_data(request.form)
     document = create_run(run_spec)
     run_id = document["id"]
-    return redirect(url_for(".get_run_view", run_id=run_id))
+    return redirect(url_for("frontend.get_run_view", run_id=run_id))
 
 
 def get_run_spec_from_form_data(form):
@@ -53,4 +52,4 @@ def resolve_constraints(form):
 
 @bp.route("/runs/<run_id>")
 def get_run_view(run_id):
-    return redirect(url_for(".home"))
+    return render_template("run_status.html", run=get_run(run_id))

@@ -25,7 +25,7 @@
     <tbody>
       {% for run in runs %}
       <tr>
-        <td><a href="{{run.href}}">{{run.id[:8]}}</a></td>
+        <td><a href="{{url_for('frontend.get_run_view', run_id=run.id)}}">{{run.id[:8]}}</a></td>
         <td>{{run.status}}</td>
       </tr>
       {% endfor %}
