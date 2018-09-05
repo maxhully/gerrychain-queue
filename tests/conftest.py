@@ -4,7 +4,7 @@ import gerrychain_queue
 
 @pytest.fixture
 def run_spec():
-    return {"graph": "wisconsin", "constraints": ["contiguous"], "total_steps": 100}
+    return {"graph": "wisconsin", "plan": ["2011"], "total_steps": 100}
 
 
 @pytest.fixture

@@ -13,8 +13,8 @@ def test_Run_requires_graph(run_spec):
         Run(run_spec)
 
 
-def test_Run_requires_constraints(run_spec):
-    del run_spec["constraints"]
+def test_Run_requires_plan(run_spec):
+    del run_spec["plan"]
     with pytest.raises(ValueError):
         Run(run_spec)
 
