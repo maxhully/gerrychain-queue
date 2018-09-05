@@ -12,7 +12,7 @@ def home():
 
 @bp.route("/new")
 def new():
-    return render_template("new.html")
+    return render_template("new_slim.html")
 
 
 @bp.route("/new/", methods=["POST"])
@@ -25,29 +25,10 @@ def post_new():
 
 def get_run_spec_from_form_data(form):
     run_spec = dict()
-    run_spec["graph"] = "wisconsin"
-    run_spec["constraints"] = resolve_constraints(form)
+    run_spec["graph"] = "pa"
+    run_spec["plan"] = form["plan"]
     run_spec["total_steps"] = form["steps"]
     return run_spec
-
-
-def resolve_constraints(form):
-    constraints = []
-    if "compactness" in form["constraints"]:
-        constraints.append(
-            {
-                "type": "compactness",
-                "score": form["compactnessScore"],
-                "tolerance": form["compactnessTolerance"],
-            }
-        )
-    if "contiguous" in form["constraints"]:
-        constraints.append("contiguous")
-    if "population" in form["constraints"]:
-        constraints.append(
-            {"type": "population", "tolerance": form["populationTolerance"]}
-        )
-    return constraints
 
 
 @bp.route("/runs/<run_id>")
