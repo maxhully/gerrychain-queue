@@ -27,7 +27,7 @@ def get_run_spec_from_form_data(form):
     run_spec = dict()
     run_spec["graph"] = "pa"
     run_spec["plan"] = form["plan"]
-    run_spec["total_steps"] = form["steps"]
+    run_spec["total_steps"] = int(form["steps"])
     return run_spec
 
 

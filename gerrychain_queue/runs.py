@@ -57,8 +57,13 @@ def get_run(run_id):
     try:
         status = q.get_status(run_id)
         details = q.get_task(run_id)
+        report = None
+        if status == "COMPLETE":
+            report = q.get_report(run_id)
     except KeyError:
         abort(404)
     run_info = details.public()
     run_info["status"] = status
+    if report is not None:
+        run_info["report"] = report
     return run_info

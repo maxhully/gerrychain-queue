@@ -66,3 +66,6 @@ class Queue:
 
     def send_message(self, task_key, message):
         self.redis.publish(channel=task_key, message=message)
+
+    def get_report(self, task_key):
+        return self.redis.get(task_key + "-report").decode("utf-8")

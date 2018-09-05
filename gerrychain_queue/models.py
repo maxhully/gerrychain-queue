@@ -17,7 +17,7 @@ class Run:
         self.id = run_spec["id"]
         self.graph = run_spec["graph"]
         self.plan = run_spec["plan"]
-        self.total_steps = run_spec["total_steps"]
+        self.total_steps = int(run_spec["total_steps"])
 
     def validate(self, spec):
         if not spec:

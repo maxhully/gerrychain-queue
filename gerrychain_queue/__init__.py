@@ -18,7 +18,7 @@ def create_app(test_config=None):
 
 def get_redis_config():
     DEFAULT_CONFIG = {
-        "REDIS_SERVICE_HOST": "localhost",
+        "REDIS_SERVICE_HOST": "redis",
         "REDIS_SERVICE_PORT": 6379,
         "REDIS_DB": 0,
         "REDIS_PASSWORD": None,
