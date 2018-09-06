@@ -13,7 +13,46 @@
         <h1>Run #{{run.id[:8]}}</h1>
         <a href="{{ url_for('frontend.home') }}">Back to queue</a>
     </header>
-    <pre>{{run}}</pre>
+    <dl>
+        <dt>Status</dt>
+        <dd>{{run.status}}</dd>
+        <dt>Graph</dt>
+        <dd>{{run.graph}}</dd>
+        <dt>Plan</dt>
+        <dd>{{run.plan}}</dd>
+        <dt>Total Steps</dt>
+        <dd>{{run.total_steps}}</dd>
+    </dl>
+    {% if run.report is defined %}
+    <section class="report">
+        <h2>Report</h2>
+        {% for election in run.report %}
+        <h3>{{election.election}}</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Score</th>
+                    <th>Fraction as high</th>
+                    <th>Number as high</th>
+                    <th>Number lower</th>
+                    <th>p-value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in election.analysis %}
+                <tr>
+                    <td>{{report.score}}</td>
+                    <td>{{report.fraction_as_high_as_original}}</td>
+                    <td>{{report.number_as_high_as_original}}</td>
+                    <td>{{report.number_lower_than_original}}</td>
+                    <td>{{report.p}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+    </section>
+    {% endif %}
 </body>
 
 </html>

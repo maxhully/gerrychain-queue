@@ -68,4 +68,6 @@ class Queue:
         self.redis.publish(channel=task_key, message=message)
 
     def get_report(self, task_key):
-        return json.loads(self.redis.get(task_key + "-report").decode("utf-8"))
+        return json.loads(
+            self.redis.get(task_key + "-report").decode("utf-8").replace("'", '"')
+        )
