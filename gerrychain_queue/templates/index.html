@@ -19,6 +19,9 @@
     <thead>
       <tr>
         <th>ID</th>
+        <th>Graph</th>
+        <th>Plan</th>
+        <th>Total Steps</th>
         <th>Status</th>
       </tr>
     </thead>
@@ -26,6 +29,9 @@
       {% for run in runs %}
       <tr>
         <td><a href="{{url_for('frontend.get_run_view', run_id=run.id)}}">{{run.id[:8]}}</a></td>
+        <td>{{run.graph}}</td>
+        <td>{{run.plan}}</td>
+        <td>{{run.total_steps}}</td>
         <td>{{run.status}}</td>
       </tr>
       {% endfor %}

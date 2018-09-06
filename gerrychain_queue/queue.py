@@ -28,11 +28,14 @@ class Queue:
         return self.redis.ping()
 
     def list_tasks(self):
-        tasks = self.redis.hgetall(self.statuses_key)
-        return [
-            {"id": key.decode("utf-8"), "status": value.decode("utf-8")}
-            for key, value in tasks.items()
-        ]
+        statuses = {
+            key.decode("utf-8"): value.decode("utf-8")
+            for key, value in self.redis.hgetall(self.statuses_key).items()
+        }
+        tasks = [self.get_task(task_id).public() for task_id in statuses]
+        for task in tasks:
+            task["status"] = statuses[task["id"]]
+        return tasks
 
     def add_task(self, task):
         task_json = json.dumps(task)
