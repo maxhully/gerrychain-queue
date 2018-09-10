@@ -72,7 +72,9 @@ class Queue:
         self.redis.publish(channel=task_key, message=message)
 
     def get_report(self, task_key):
-        elections = json.loads(self.redis.get(task_key + "-report").decode("utf-8"))
+        elections = json.loads(
+            self.redis.get(task_key + "-report").decode("utf-8").replace("'", '"')
+        )
         for election in elections:
             for score in election["analysis"]:
                 score["histogram"] = repair_histogram(score["histogram"])
