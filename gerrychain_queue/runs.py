@@ -67,3 +67,18 @@ def get_run(run_id):
     if report is not None:
         run_info["report"] = report
     return run_info
+
+
+@bp.route("/<run_id>", methods=["DELETE"])
+def cancel_run(run_id):
+    q = get_queue()
+
+    try:
+        result = q.delete_task(run_id)
+    except KeyError:
+        abort(404)
+
+    if not result:
+        abort(500)
+
+    return {"id": run_id}

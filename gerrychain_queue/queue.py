@@ -1,3 +1,4 @@
+import collections
 import json
 
 from flask import current_app, g
@@ -71,6 +72,16 @@ class Queue:
         self.redis.publish(channel=task_key, message=message)
 
     def get_report(self, task_key):
-        return json.loads(
-            self.redis.get(task_key + "-report").decode("utf-8").replace("'", '"')
-        )
+        elections = json.loads(self.redis.get(task_key + "-report").decode("utf-8"))
+        for election in elections:
+            for score in election["analysis"]:
+                score["histogram"] = repair_histogram(score["histogram"])
+        self.redis.set(task_key + "-report", json.dumps(elections))
+        return elections
+
+
+def repair_histogram(histogram):
+    new_histogram = collections.defaultdict(int)
+    for (left, right), count in histogram:
+        new_histogram[(round(left, 4), round(right, 4))] += count
+    return [((left, right), count) for (left, right), count in new_histogram.items()]
